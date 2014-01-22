@@ -7,5 +7,5 @@ from zen import router
 def index(_write_tmpl):
     url = router.to_path(aluno.index)
     values = {'aluno_home_url': url,
-              'curso_home_url':router.to_path(curso)}
+              'curso_home_url': router.to_path(curso)}
     _write_tmpl('templates/home.html', values)

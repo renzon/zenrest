@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from google.appengine.ext import ndb
 from aluno.model import Aluno
 from curso.model import Curso, Matricula
+from web import rest
 from zen import router
 
 
@@ -12,7 +13,8 @@ def index(_write_tmpl):
     url = router.to_path(form)
     values = {'curso_form_url': url,
               'lista_de_cursos': lista_de_cursos,
-              'matricula_url': router.to_path(matriculas)}
+              'matricula_url': router.to_path(matriculas),
+              'matricula_rest_url': router.to_path(rest.matriculas)}
     _write_tmpl('templates/curso_home.html', values)
 
 
@@ -48,7 +50,7 @@ def matriculas(_write_tmpl, curso_id):
             alunos_matriculados.append(aluno)
         else:
             alunos_disponiveis.append(aluno)
-    # buscando curso do BD. Usa memcache (NDB)
+        # buscando curso do BD. Usa memcache (NDB)
     curso = curso_key.get()
 
     #Montagem dos parametros do template
@@ -59,11 +61,11 @@ def matriculas(_write_tmpl, curso_id):
     _write_tmpl('templates/matricula.html', values)
 
 
-def salvar_matricula(_handler,curso_id, aluno_id):
-    curso_key=ndb.Key(Curso,int(curso_id))
-    aluno_key=ndb.Key(Aluno,int(aluno_id))
-    Matricula(curso=curso_key,aluno=aluno_key).put()
+def salvar_matricula(_handler, curso_id, aluno_id):
+    curso_key = ndb.Key(Curso, int(curso_id))
+    aluno_key = ndb.Key(Aluno, int(aluno_id))
+    Matricula(curso=curso_key, aluno=aluno_key).put()
 
-    url=router.to_path(matriculas,curso_id)
+    url = router.to_path(matriculas, curso_id)
     _handler.redirect(url)
 

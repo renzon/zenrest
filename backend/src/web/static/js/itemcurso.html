@@ -1,0 +1,13 @@
+<li>
+
+    <a href="{_ cursoUrl _}">{_ cursoNome _}</a>
+    <button ng-show="status==='NOVO'"
+            ng-click="buscarMatriculas()">Carregar Matriculados
+    </button>
+    <img src="/static/img/loader.gif" ng-show="status==='CARREGANDO'"/>
+    <span ng-show="status==='CARREGADO'&& matriculados.length===0">Ninguém se matriculou ainda...</span>
+    <ol>
+        <li ng-repeat="m in matriculados">{_ m.nome _}</li>
+    </ol>
+
+</li>
