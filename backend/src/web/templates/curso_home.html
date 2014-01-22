@@ -4,13 +4,14 @@
     <title>Python Pro - Cursos</title>
 </head>
 <body>
-   <h1>Página de Cursos</h1>
-    <a href="{{curso_form_url}}">Adicionar curso</a>
-    <h2>Cursos disponível para matrícula</h2>
-    <ul>
-        {% for curso in lista_de_cursos %}
-            <li>{{ curso.nome }}</li>
-        {% endfor %}
-    </ul>
+<h1>Página de Cursos</h1>
+<a href="{{ curso_form_url }}">Adicionar curso</a>
+
+<h2>Cursos disponível para matrícula</h2>
+<ul>
+    {% for curso in lista_de_cursos %}
+        <li><a href="{{ matricula_url }}/{{ curso.key.id() }}">{{ curso.nome }}</a></li>
+    {% endfor %}
+</ul>
 </body>
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Pro</title>
+</head>
+<body>
+<h1>Curso {{ curso.nome }}</h1>
+
+<h2>Alunos Matriculados</h2>
+<ol>
+    {% for aluno_matriculado in lista_de_alunos_matriculados %}
+        <li>{{ aluno_matriculado.nome }}</li>
+    {% else %}
+        <li>Nenhum aluno foi matriculado ainda</li>
+    {% endfor %}
+</ol>
+{% if lista_de_alunos_disponiveis %}
+    <h2>Formulário de Matrícula</h2>
+
+    <form action="{{ matricula_salvar_url }}" method="post">
+        <input type="hidden" name="curso_id" value="{{ curso.key.id() }}"/>
+        Alunos: <select name="aluno_id">
+        {% for aluno_disponivel in lista_de_alunos_disponiveis %}
+            <option value="{{ aluno_disponivel.key.id() }}">{{ aluno_disponivel.nome }}</option>
+        {% endfor %}
+    </select>
+        <button type="submit">Matricular</button>
+    </form>
+{% endif %}
+</body>
+</html>
