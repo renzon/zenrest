@@ -5,8 +5,11 @@ from zen import router
 
 
 def index(_write_tmpl):
+    query = Curso.query_cursos_ordenados_asc()
+    lista_de_cursos = query.fetch()
     url = router.to_path(form)
-    values = {'curso_form_url': url}
+    values = {'curso_form_url': url,
+              'lista_de_cursos': lista_de_cursos}
     _write_tmpl('templates/curso_home.html', values)
 
 
@@ -17,7 +20,7 @@ def form(_write_tmpl):
 
 
 def salvar(_handler, nome):
-    curso=Curso(nome=nome)
+    curso = Curso(nome=nome)
     curso.put()
-    home=router.to_path(index)
+    home = router.to_path(index)
     _handler.redirect(home)
