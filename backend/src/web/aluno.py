@@ -16,5 +16,8 @@ def form(_write_tmpl):
     _write_tmpl('templates/aluno_form.html', values)
 
 
-def salvar(_resp, nome):
-    _resp.write('Olá %s'%nome)
+def salvar(_handler, nome):
+    aluno=Aluno(nome=nome)
+    aluno.put()
+    home=router.to_path(index)
+    _handler.redirect(home)
